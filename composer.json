@@ -1,0 +1,6 @@
+{
+    "name": "timgblack/pdfwext",
+    "description": "Extensions for timgblack/pdfw PDF creator",
+    "type": "library",
+    "require": {}
+}
