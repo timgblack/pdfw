@@ -1,0 +1,6 @@
+{
+    "name": "timgblack/pdfw",
+    "description": "Low level PDF creator",
+    "type": "library",
+    "require": {}
+}
