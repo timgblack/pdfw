@@ -1,6 +1,20 @@
 {
     "name": "timgblack/pdfwext",
-    "description": "Extensions for timgblack/pdfw PDF creator",
+    "description": "Higher level abstractions for timgblack/pdfw",
     "type": "library",
-    "require": {}
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/timgblack/pdfw"
+        }
+    ],
+    "require": {
+        "timgblack/pdfw": "@dev"
+    },
+    "autoload": {
+        "psr-4": { "pdfwext\\": "src/" }
+    },
+    "suggest": {
+      "chillerlan/php-qrcode": "To generate QR Codes"
+    }
 }
