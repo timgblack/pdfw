@@ -2,5 +2,11 @@
     "name": "timgblack/pdfw",
     "description": "Low level PDF creator",
     "type": "library",
-    "require": {}
+    "require": {},
+    "autoload": {
+        "psr-4": { "pdfw\\": "src/" }
+    },
+    "suggest": {
+      "timgblack/pdfwext": "Higher level abstractions for pdfw"
+    }
 }
