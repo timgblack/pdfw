@@ -1,5 +1,6 @@
 <?php
 namespace pdfwext\Stream;
+use chillerlan\QRCode\QRCode;
 use pdfw\Types\PDFString;
 use pdfw\Types\Stream;
 
@@ -63,21 +64,11 @@ class Draw {
   public function QRCode($content, $x, $y, $size) {
     $this->Commit();
 
-    require_once '/var/www/class/qrcode.php';
+    $qr = (new QRCode)->getMatrix($content)->matrix();
 
-    $qr = \QRCode::getMinimumQRCode($content, \QR_ERROR_CORRECT_LEVEL_L);
-
-    $moduleCount = $qr->getModuleCount();
+    $moduleCount = count($qr);
     $unitSize = $size / $moduleCount;
 	
-    $needsPainting = [];
-    for ($r = 0; $r < $moduleCount; $r++) {
-      $needsPainting[$r] = [];
-      for ($c = 0; $c < $moduleCount; $c++) {
-        $needsPainting[$r][$c] = $qr->isDark($r, $c);
-      }
-    }
-    
     function needsToPaintRow($row, $startC, $endC) {
       for ($c = $startC; $c <= $endC; $c++) {
         if (!$row[$c])
@@ -88,11 +79,11 @@ class Draw {
 
     for ($c = 0; $c < $moduleCount; $c++) {
       for ($r = 0; $r < $moduleCount; $r++) {
-        if ($needsPainting[$r][$c]) {
+        if ($qr[$r][$c]) {
           $endC = $c;
           $endR = $r;
-          while ($needsPainting[$endR][$endC + 1]) $endC++;
-          while (needsToPaintRow($needsPainting[$endR + 1], $c, $endC)) $endR++;
+          while ($qr[$endR][$endC + 1]) $endC++;
+          while (needsToPaintRow($qr[$endR + 1], $c, $endC)) $endR++;
           
           $width = $unitSize * ($endC - $c + 1);
           $height = $unitSize * ($endR - $r + 1);
@@ -100,7 +91,7 @@ class Draw {
 
           for ($paintedR = $r; $paintedR <= $endR; $paintedR++) {
             for ($paintedC = $c; $paintedC <= $endC; $paintedC++) {
-              $needsPainting[$paintedR][$paintedC] = false;
+              $qr[$paintedR][$paintedC] = false;
             }
           }
         }
