@@ -64,26 +64,36 @@ class Draw {
   public function QRCode($content, $x, $y, $size) {
     $this->Commit();
 
-    $qr = (new QRCode)->getMatrix($content)->matrix();
+    $qr = (new QRCode)->getMatrix($content);
+//error_log(print_r($qr, true));
 
-    $moduleCount = count($qr);
+    //$moduleCount = $qr->size();
+    $moduleCount = count($qr->matrix());
     $unitSize = $size / $moduleCount;
 	
-    function needsToPaintRow($row, $startC, $endC) {
-      for ($c = $startC; $c <= $endC; $c++) {
-        if (!$row[$c])
+    function needsToPaint($column, $startR, $endR) {
+      for ($r = $startR; $r <= $endR; $r++) {
+        if (!$column[$r])
           return false;
       }
       return true;
     }
 
+    $matrix = [];
+    for ($c = 0; $c < $moduleCount; $c++) {
+      $matrix[$c] = [];
+      for ($r = 0; $r < $moduleCount; $r++) {
+        $matrix[$c][$r] = $qr->check($c, $r);
+      }
+    }
+
     for ($c = 0; $c < $moduleCount; $c++) {
       for ($r = 0; $r < $moduleCount; $r++) {
-        if ($qr[$r][$c]) {
+        if ($matrix[$r][$c]) {
           $endC = $c;
           $endR = $r;
-          while ($qr[$endR][$endC + 1]) $endC++;
-          while (needsToPaintRow($qr[$endR + 1], $c, $endC)) $endR++;
+          //while ($matrix[$endC][$endR + 1]) $endR++;
+          //while (needsToPaint($matrix[$endC + 1], $r, $endR)) $endC++;
           
           $width = $unitSize * ($endC - $c + 1);
           $height = $unitSize * ($endR - $r + 1);
@@ -91,7 +101,7 @@ class Draw {
 
           for ($paintedR = $r; $paintedR <= $endR; $paintedR++) {
             for ($paintedC = $c; $paintedC <= $endC; $paintedC++) {
-              $qr[$paintedR][$paintedC] = false;
+              $matrix[$paintedR][$paintedC] = false;
             }
           }
         }
