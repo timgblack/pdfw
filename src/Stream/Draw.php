@@ -71,13 +71,13 @@ class Draw {
     $moduleCount = count($qr->matrix());
     $unitSize = $size / $moduleCount;
 	
-    function needsToPaint($column, $startR, $endR) {
+    $needsToPaint = function($column, $startR, $endR) {
       for ($r = $startR; $r <= $endR; $r++) {
         if (!$column[$r])
           return false;
       }
       return true;
-    }
+    };
 
     $matrix = [];
     for ($c = 0; $c < $moduleCount; $c++) {
@@ -93,7 +93,7 @@ class Draw {
           $endC = $c;
           $endR = $r;
           //while ($matrix[$endC][$endR + 1]) $endR++;
-          //while (needsToPaint($matrix[$endC + 1], $r, $endR)) $endC++;
+          //while ($needsToPaint($matrix[$endC + 1], $r, $endR)) $endC++;
           
           $width = $unitSize * ($endC - $c + 1);
           $height = $unitSize * ($endR - $r + 1);
