@@ -14,7 +14,7 @@ class Font extends PDFObject {
     if (!in_array($name, static::$allFonts)) {
       throw new Exception();
     }
-    if (!in_array($name, static::$symbolFonts)) {
+    if (in_array($name, static::$symbolFonts)) {
       $bold = false;
       $oblique = false;
     }

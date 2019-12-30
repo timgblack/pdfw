@@ -4,12 +4,6 @@ use pdfw\Types\Dictionary;
 use pdfw\Types\Name;
 
 class HelveticaBoldOblique extends FontDefinition {
-  public $object = new Dictionary([
-    'Type' => new Name('Font'),
-    'BaseFont' => new Name('Helvetica-BoldOblique'),
-    'Subtype' => new Name('Type1'),
-    'Encoding' => new Name('StandardEncoding')
-  ]);
   public $fontWidths = [];
 
   private static $widths = [
@@ -40,8 +34,14 @@ class HelveticaBoldOblique extends FontDefinition {
   ];
 
   public function __construct() {
-    foreach(static::widths as $width => $characters) {
-      if (typeof($characters) == 'array') {
+    $object = new Dictionary([
+      'Type' => new Name('Font'),
+      'BaseFont' => new Name('Helvetica-BoldOblique'),
+      'Subtype' => new Name('Type1'),
+      'Encoding' => new Name('StandardEncoding')
+    ]);
+    foreach(static::$widths as $width => $characters) {
+      if (gettype($characters) == 'array') {
         foreach ($characters as $character) {
           $this->$fontWidths[chr($character)] = $width;
         }
@@ -49,4 +49,5 @@ class HelveticaBoldOblique extends FontDefinition {
         $this->$fontWidths[chr($characters)] = $width;
       }
     }
+  }
 }
