@@ -4,8 +4,6 @@ use pdfw\Types\Dictionary;
 use pdfw\Types\Name;
 
 class ZapfDingbats extends FontDefinition {
-  public $fontWidths = [];
-
   private static $widths = [
     0 => [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,127,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,240,255],
     138 => 120,
@@ -126,12 +124,12 @@ class ZapfDingbats extends FontDefinition {
       'Encoding' => new Name('StandardEncoding')
     ]);
     foreach(static::widths as $width => $characters) {
-      if (typeof($characters) == 'array') {
+      if (gettype($characters) == 'array') {
         foreach ($characters as $character) {
-          $this->$fontWidths[chr($character)] = $width;
+          $this->fontWidths[chr($character)] = $width;
         }
       } else {
-        $this->$fontWidths[chr($characters)] = $width;
+        $this->fontWidths[chr($characters)] = $width;
       }
     }
   }

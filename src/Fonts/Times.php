@@ -4,8 +4,6 @@ use pdfw\Types\Dictionary;
 use pdfw\Types\Name;
 
 class Times extends FontDefinition {
-  public $fontWidths = [];
-
   private static $widths = [
     //180 => 39,
     200 => [124,166],

@@ -4,8 +4,6 @@ use pdfw\Types\Dictionary;
 use pdfw\Types\Name;
 
 class Helvetica extends FontDefinition {
-  public $fontWidths = [];
-
   private static $widths = [
     191 => 39,
     222 => [105,106,108,130,145,146],

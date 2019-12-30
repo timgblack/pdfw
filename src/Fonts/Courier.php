@@ -2,8 +2,6 @@
 namespace pdfw\Fonts;
 
 class Courier extends FontDefinition {
-  public $fontWidths = [];
-
   private static $widths = [600 => range(0,255)];
 
   public function __construct() {
@@ -14,12 +12,13 @@ class Courier extends FontDefinition {
       'Encoding' => new Name('StandardEncoding')
     ]);
     foreach(static::widths as $width => $characters) {
-      if (typeof($characters) == 'array') {
+      if (gettype($characters) == 'array') {
         foreach ($characters as $character) {
-          $this->$fontWidths[chr($character)] = $width;
+          $this->fontWidths[chr($character)] = $width;
         }
       } else {
-        $this->$fontWidths[chr($characters)] = $width;
+        $this->fontWidths[chr($characters)] = $width;
       }
     }
+  }
 }

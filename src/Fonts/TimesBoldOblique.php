@@ -4,14 +4,6 @@ use pdfw\Types\Dictionary;
 use pdfw\Types\Name;
 
 class TimesBoldOblique extends FontDefinition {
-  public $object = new Dictionary([
-    'Type' => new Name('Font'),
-    'BaseFont' => new Name('Times-BoldItalic'),
-    'Subtype' => new Name('Type1'),
-    'Encoding' => new Name('StandardEncoding')
-  ]);
-  public $fontWidths = [];
-
   private static $widths = [
     220 => [124,166],
     250 => [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,44,46,160,183],
@@ -44,13 +36,20 @@ class TimesBoldOblique extends FontDefinition {
   ];
 
   public function __construct() {
+    $this->object = new Dictionary([
+      'Type' => new Name('Font'),
+      'BaseFont' => new Name('Times-BoldItalic'),
+      'Subtype' => new Name('Type1'),
+      'Encoding' => new Name('StandardEncoding')
+    ]);
     foreach(static::widths as $width => $characters) {
-      if (typeof($characters) == 'array') {
+      if (gettype($characters) == 'array') {
         foreach ($characters as $character) {
-          $this->$fontWidths[chr($character)] = $width;
+          $this->fontWidths[chr($character)] = $width;
         }
       } else {
-        $this->$fontWidths[chr($characters)] = $width;
+        $this->fontWidths[chr($characters)] = $width;
       }
     }
+  }
 }

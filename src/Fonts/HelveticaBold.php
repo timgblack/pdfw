@@ -4,14 +4,6 @@ use pdfw\Types\Dictionary;
 use pdfw\Types\Name;
 
 class HelveticaBold extends FontDefinition {
-  public $object = new Dictionary([
-    'Type' => new Name('Font'),
-    'BaseFont' => new Name('Helvetica-Bold'),
-    'Subtype' => new Name('Type1'),
-    'Encoding' => new Name('StandardEncoding')
-  ]);
-  public $fontWidths = [];
-
   private static $widths = [
     238 => 39,
     278 => [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,44,46,47,73,92,105,106,108,130,145,146,160,183,204,205,206,207,236,237,238,239],
@@ -40,13 +32,20 @@ class HelveticaBold extends FontDefinition {
   ];
 
   public function __construct() {
+    $this->object = new Dictionary([
+      'Type' => new Name('Font'),
+      'BaseFont' => new Name('Helvetica-Bold'),
+      'Subtype' => new Name('Type1'),
+      'Encoding' => new Name('StandardEncoding')
+    ]);
     foreach(static::widths as $width => $characters) {
-      if (typeof($characters) == 'array') {
+      if (gettype($characters) == 'array') {
         foreach ($characters as $character) {
-          $this->$fontWidths[chr($character)] = $width;
+          $this->fontWidths[chr($character)] = $width;
         }
       } else {
-        $this->$fontWidths[chr($characters)] = $width;
+        $this->fontWidths[chr($characters)] = $width;
       }
     }
+  }
 }

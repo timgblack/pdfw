@@ -3,7 +3,7 @@ namespace pdfw\Fonts;
 
 abstract class FontDefinition {
   public $object;
-  public $fontWidths;
+  public $fontWidths = [];
 
   public function CalculateWidth($string) {
     $width = 0;

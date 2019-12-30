@@ -2,14 +2,6 @@
 namespace pdfw\Fonts;
 
 class Symbol extends FontDefinition {
-  public $object = new Dictionary([
-    'Type' => new Name('Font'),
-    'BaseFont' => new Name('Symbol'),
-    'Subtype' => new Name('Type1'),
-    'Encoding' => new Name('StandardEncoding')
-  ]);
-  public $fontWidths = [];
-
   private static $widths = [
     0 => [127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,240,255],
     167 => 164,
@@ -67,13 +59,20 @@ class Symbol extends FontDefinition {
   ];
 
   public function __construct() {
+    $this->object = new Dictionary([
+      'Type' => new Name('Font'),
+      'BaseFont' => new Name('Symbol'),
+      'Subtype' => new Name('Type1'),
+      'Encoding' => new Name('StandardEncoding')
+    ]);
     foreach(static::widths as $width => $characters) {
-      if (typeof($characters) == 'array') {
+      if (gettype($characters) == 'array') {
         foreach ($characters as $character) {
-          $this->$fontWidths[chr($character)] = $width;
+          $this->fontWidths[chr($character)] = $width;
         }
       } else {
-        $this->$fontWidths[chr($characters)] = $width;
+        $this->fontWidths[chr($characters)] = $width;
       }
     }
+  }
 }
