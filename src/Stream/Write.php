@@ -70,8 +70,12 @@ class Write {
     return $this;
   }
 
+  public static function GetFontTextWidth($font, $fontSize, $text) {
+    return $font->fontDefinition->CalculateWidth($text) / 1000 * $fontSize;
+  }
+
   public function GetTextWidth($text) {
-    return $this->font->fontDefinition->CalculateWidth($text) / 1000 * $this->fontSize;
+    return static::GetFontTextWidth($this->font, $this->fontSize, $text);
   }
 
   public function Write($text, $advanceX = true) {
