@@ -7,6 +7,6 @@
         "psr-4": { "pdfw\\": "src/" }
     },
     "suggest": {
-      "timgblack/pdfwext": "Higher level abstractions for pdfw"
+        "chillerlan/php-qrcode": "To generate QR Codes"
     }
 }

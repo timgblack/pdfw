@@ -1,0 +1,50 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "05ed3579fb0536654ef37d34bd25f361",
+    "packages": [
+        {
+            "name": "timgblack/pdfw",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/timgblack/pdfw.git",
+                "reference": "c19bd76a191665866dbbb73a33e3f3fb7b941787"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/timgblack/pdfw/zipball/c19bd76a191665866dbbb73a33e3f3fb7b941787",
+                "reference": "c19bd76a191665866dbbb73a33e3f3fb7b941787",
+                "shasum": ""
+            },
+            "suggest": {
+                "timgblack/pdfwext": "Higher level abstractions for pdfw"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "pdfw\\": "src/"
+                }
+            },
+            "description": "Low level PDF creator",
+            "support": {
+                "source": "https://github.com/timgblack/pdfw/tree/master",
+                "issues": "https://github.com/timgblack/pdfw/issues"
+            },
+            "time": "2019-12-11T16:07:03+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "timgblack/pdfw": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
